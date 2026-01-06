@@ -213,6 +213,11 @@ public class SensorColor extends LinearOpMode {
                 telemetry.addData("Distance (cm)", "%.3f", ((DistanceSensor) colorSensor).getDistance(DistanceUnit.CM));
             }
 
+            if (colors.alpha > 0.3) {
+                // assume valid detection
+                telemetry.addData("Detect", (hsvValues[0] < 210.0) ? "GREEN" : "PURPLE");
+            }
+
             telemetry.update();
 
             // Change the Robot Controller's background color to match the color detected by the color sensor.
