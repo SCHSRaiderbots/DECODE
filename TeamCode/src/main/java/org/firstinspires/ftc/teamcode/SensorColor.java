@@ -65,6 +65,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 @TeleOp(name = "Sensor: Color", group = "Sensor")
+@SuppressWarnings("unused")
 public class SensorColor extends LinearOpMode {
 
     /** The colorSensor field will contain a reference to our color sensor hardware object */
@@ -100,11 +101,7 @@ public class SensorColor extends LinearOpMode {
             // as pure white, but it's too much work to dig out what actually was used, and this is good
             // enough to at least make the screen reasonable again.
             // Set the panel back to the default color
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.WHITE);
-                }
-            });
+            relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.WHITE));
         }
     }
 
@@ -128,7 +125,6 @@ public class SensorColor extends LinearOpMode {
         // xButtonPreviouslyPressed and xButtonCurrentlyPressed keep track of the previous and current
         // state of the X button on the gamepad
         boolean xButtonPreviouslyPressed = false;
-        boolean xButtonCurrentlyPressed = false;
 
         // Get a reference to our sensor object. It's recommended to use NormalizedColorSensor over
         // ColorSensor, because NormalizedColorSensor consistently gives values between 0 and 1, while
@@ -170,20 +166,24 @@ public class SensorColor extends LinearOpMode {
 
             telemetry.addData("Switchable", bSwitchable);
 
-            // Check the status of the X button on the gamepad
-            xButtonCurrentlyPressed = gamepad1.x;
+            {
+                // Check the status of the X button on the gamepad
 
-            // If the button state is different than what it was, then act
-            if (xButtonCurrentlyPressed != xButtonPreviouslyPressed) {
-                // If the button is (now) down, then toggle the light
-                if (xButtonCurrentlyPressed) {
-                    if (bSwitchable) {
-                        SwitchableLight light = (SwitchableLight)colorSensor;
-                        light.enableLight(!light.isLightOn());
+                boolean xButtonCurrentlyPressed = gamepad1.x;
+
+                // If the button state is different than what it was, then act
+                if (xButtonCurrentlyPressed != xButtonPreviouslyPressed) {
+                    // If the button is (now) down, then toggle the light
+                    if (xButtonCurrentlyPressed) {
+                        if (bSwitchable) {
+                            SwitchableLight light = (SwitchableLight) colorSensor;
+                            light.enableLight(!light.isLightOn());
+                        }
                     }
                 }
+
+                xButtonPreviouslyPressed = xButtonCurrentlyPressed;
             }
-            xButtonPreviouslyPressed = xButtonCurrentlyPressed;
 
             // Get the normalized colors from the sensor
             NormalizedRGBA colors = colorSensor.getNormalizedColors();
@@ -221,11 +221,7 @@ public class SensorColor extends LinearOpMode {
             telemetry.update();
 
             // Change the Robot Controller's background color to match the color detected by the color sensor.
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.HSVToColor(hsvValues));
-                }
-            });
+            relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.HSVToColor(hsvValues)));
         }
     }
 }
