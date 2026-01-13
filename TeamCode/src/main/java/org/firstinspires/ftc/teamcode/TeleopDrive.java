@@ -30,6 +30,12 @@ public class TeleopDrive extends OpMode {
 
     SampleDetector sampler;
 
+    // The sweep intake
+    Intake intake;
+
+    // The shooter
+    Shooter shooter;
+
     // Whether or not to use the IMU
     boolean bIMU = false;
 
@@ -63,6 +69,12 @@ public class TeleopDrive extends OpMode {
         if (robot == RobotId.ROBOT_2022 || robot == RobotId.ROBOT_2023) {
             // TODO: currently uses ROBOT_2022 camera offset!
             vision = new Vision(hardwareMap);
+
+            // make the intake object
+            intake = new Intake(hardwareMap);
+
+            // the shooter
+            shooter = new Shooter(hardwareMap);
 
             // get the Sample detector
             sampler = new SampleDetector(hardwareMap);
@@ -150,6 +162,21 @@ public class TeleopDrive extends OpMode {
             // set the pose
             Motion.setPoseInches(Vision.inchX, Vision.inchY, Vision.degTheta);
         }
+
+        if (gamepad1.a) {
+            shooter.setRPM(1.0);
+        }
+        if (gamepad1.b) {
+            shooter.setRPM(0);
+        }
+
+        if (gamepad1.dpad_up) {
+            intake.power(1.0);
+        }
+        if (gamepad1.dpad_down) {
+            intake.power(0);
+        }
+
 
         // if we have a SampleDetector
         if (sampler != null) {
