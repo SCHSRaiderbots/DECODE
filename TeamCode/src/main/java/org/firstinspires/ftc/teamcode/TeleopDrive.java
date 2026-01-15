@@ -164,7 +164,7 @@ public class TeleopDrive extends OpMode {
         }
 
         if (gamepad1.a) {
-            shooter.setRPM(1.0);
+            shooter.setRPM(30.0);
         }
         if (gamepad1.b) {
             shooter.setRPM(0);
@@ -182,6 +182,8 @@ public class TeleopDrive extends OpMode {
         if (sampler != null) {
             telemetry.addData("Sample Color", "%s", sampler.getColor());
         }
+
+        telemetry.addData("Shooter", "%8.3f %8.3f", shooter.motor.getVelocity(), shooter.ticksPerSecondMax);
     }
 
     /**
