@@ -65,7 +65,6 @@ public class Shooter {
         // the native units are ticks per second
         motor.setVelocity(rps * ticksPerRev);
     }
-
     /** Feed Ball into the Shooter */
     public void feed() {
         servo.setPosition(PUSH);

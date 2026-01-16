@@ -179,8 +179,7 @@ public class TeleopDrive extends OpMode {
         if (gamepad1.dpad_right){
             shooter.feed();
         }
-
-        if (gamepad1.dpad_left){
+        else{
             shooter.back();
         }
 
