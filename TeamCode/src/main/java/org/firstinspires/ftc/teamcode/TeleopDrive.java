@@ -176,7 +176,13 @@ public class TeleopDrive extends OpMode {
         if (gamepad1.dpad_down) {
             intake.power(0);
         }
+        if (gamepad1.dpad_right){
+            shooter.feed();
+        }
 
+        if (gamepad1.dpad_left){
+            shooter.back();
+        }
 
         // if we have a SampleDetector
         if (sampler != null) {

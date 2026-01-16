@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.MotorControlAlgorithm;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Shooter {
@@ -14,6 +14,10 @@ public class Shooter {
     double ticksPerRev;
     double ticksPerSecondMax;
 
+    Servo servo;
+
+    double REST = 0.3;
+    double PUSH = 0.5;
     public Shooter(HardwareMap hardwareMap) {
         // get the motor
         motor = hardwareMap.get(DcMotorEx.class, "motorShoot");
@@ -46,6 +50,10 @@ public class Shooter {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         motor.setVelocity(0.0);
+
+        servo = hardwareMap.get(Servo.class, "leverServo");
+
+        servo.setPosition(REST);
     }
 
     /**
@@ -56,5 +64,14 @@ public class Shooter {
         // chose a decent speed to set the speed.
         // the native units are ticks per second
         motor.setVelocity(rps * ticksPerRev);
+    }
+
+    /** Feed Ball into the Shooter */
+    public void feed() {
+        servo.setPosition(PUSH);
+    }
+    /** Bring Spoon back*/
+    public void back() {
+        servo.setPosition(REST);
     }
 }
