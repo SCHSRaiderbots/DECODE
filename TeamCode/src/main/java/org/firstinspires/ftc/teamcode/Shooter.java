@@ -17,7 +17,7 @@ public class Shooter {
     Servo servo;
 
     double REST = 0.3;
-    double PUSH = 0.5;
+    double PUSH = 0.1;
     public Shooter(HardwareMap hardwareMap) {
         // get the motor
         motor = hardwareMap.get(DcMotorEx.class, "motorShoot");
@@ -27,20 +27,25 @@ public class Shooter {
 
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Optional: Set custom PIDF values
-        double p = 10.0;
-        double i =  3.0;
-        double d = 0.0;
+        // set the gearing
+        motor.getMotorType().setGearing(1.0);
+
         ticksPerRev = motor.getMotorType().getTicksPerRev();
-        // TODO: ticksPerRev is 560.00
-        // probably gear ratio of 20 and 28 ticks per rev
+        // was 560, probably gear ratio of 20 and 28 ticks per rev
         ticksPerRev = 28;
-        // this is 2830. makes sense.
+
+        // this is 2830. makes sense: 28 ticks/rev * 100 rev/sec
         ticksPerSecondMax = motor.getMotorType().getAchieveableMaxTicksPerSecond();
+
+        // Optional: Set custom PIDF values
+        double p = 20.0;
+        double i = 1.0;
+        double d = 0.0;
 
         // double f = 13.5;
         // expect to be about 32000 / 100 * 28 approx 10
         double f = 32000.0 / ticksPerSecondMax;
+        f = f * 1.8;
         PIDFCoefficients pidf = new PIDFCoefficients(p, i, d, f, MotorControlAlgorithm.PIDF);
 
         motor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
