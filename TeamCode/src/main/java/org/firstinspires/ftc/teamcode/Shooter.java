@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.MotorControlAlgorithm;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Shooter {
     // the shooter motor
@@ -37,15 +36,16 @@ public class Shooter {
         // this is 2830. makes sense: 28 ticks/rev * 100 rev/sec
         ticksPerSecondMax = motor.getMotorType().getAchieveableMaxTicksPerSecond();
 
-        // Optional: Set custom PIDF values
-        double p = 20.0;
-        double i = 1.0;
+        // TODO: Set custom PIDF values
+        double p = 200.0;
+        double i = 0.0;
         double d = 0.0;
 
         // double f = 13.5;
         // expect to be about 32000 / 100 * 28 approx 10
         double f = 32000.0 / ticksPerSecondMax;
-        f = f * 1.8;
+        // tweak setpoint for drag
+        f = f * 2.1;
         PIDFCoefficients pidf = new PIDFCoefficients(p, i, d, f, MotorControlAlgorithm.PIDF);
 
         motor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
@@ -65,11 +65,26 @@ public class Shooter {
      * Set the shooter velocity.
      * @param rps
      */
-    public void setRPM(double rps) {
+    public void setRPS(double rps) {
         // chose a decent speed to set the speed.
         // the native units are ticks per second
-        motor.setVelocity(rps * ticksPerRev);
+        motor.setVelocity(-rps * ticksPerRev);
     }
+
+    public double getRPS() {
+        return motor.getVelocity() / ticksPerRev;
+    }
+
+    public void setMPS(double mps) {
+        double rps = mps / ((125.0 / 60.0) * Math.PI * (2.0 * 0.0254));
+        setRPS(rps);
+    }
+
+    public double getMPS() {
+        //                gear ratio       circumference of wheel
+        return getRPS() * (125.0 / 60.0) * Math.PI * (2.0 * 0.0254);
+    }
+
     /** Feed Ball into the Shooter */
     public void feed() {
         servo.setPosition(PUSH);

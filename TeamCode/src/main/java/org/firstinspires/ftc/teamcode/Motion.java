@@ -533,10 +533,11 @@ public class Motion {
         mWheelDiameterRight = 0.090;
 
         // set the wheel half separation
-        distWheel = (10.125 * 0.0254) / 2.0 * (3718.0 / 3600.0);
+        //// distWheel = (10.125 * 0.0254) / 2.0 * (3718.0 / 3600.0);
+        distWheel = (13.750 * 0.0254) / 2.0 * (4073.0 / 3600.0);
 
         // ticks per wheel revolution
-        // The motor has a 45-tooth gear, and the wheel has a 90-tooth sprocket.
+        // The motor has a 45-tooth pinion gear, and the wheel has a 90-tooth sprocket.
         ticksPerWheelRev = HD_HEX_TICKS_PER_REV * HD_HEX_GEAR_CART_5_1 * HD_HEX_GEAR_CART_4_1 * (90.0 / 45.0);
 
         // derived values

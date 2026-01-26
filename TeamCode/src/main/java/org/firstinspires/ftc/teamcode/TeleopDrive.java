@@ -164,16 +164,18 @@ public class TeleopDrive extends OpMode {
         }
 
         if (gamepad1.a) {
-            shooter.setRPM(-25.0);
+            shooter.setRPS(25.0);
         }
         if (gamepad1.b) {
-            shooter.setRPM(0);
+            shooter.setRPS(0);
         }
 
         if (gamepad1.dpad_up) {
+            shooter.setMPS(3.0);
             intake.power(1.0);
         }
         if (gamepad1.dpad_down) {
+            shooter.setMPS(0.0);
             intake.power(0);
         }
 
@@ -181,7 +183,7 @@ public class TeleopDrive extends OpMode {
         if (gamepad1.right_bumper || gamepad1.left_bumper){
             shooter.feed();
         }
-        else{
+        else {
             shooter.back();
         }
 
@@ -190,7 +192,9 @@ public class TeleopDrive extends OpMode {
             telemetry.addData("Sample Color", "%s", sampler.getColor());
         }
 
-        telemetry.addData("Shooter", "%8.3f %8.3f", shooter.motor.getVelocity()/28.0, shooter.ticksPerSecondMax);
+        double rps = shooter.getRPS();
+        double mps = shooter.getMPS();
+        telemetry.addData("Shooter", "%8.3f %8.3f %8.3f", rps, mps, shooter.ticksPerSecondMax);
     }
 
     /**
