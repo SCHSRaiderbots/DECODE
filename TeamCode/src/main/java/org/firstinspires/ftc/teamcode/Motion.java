@@ -290,6 +290,10 @@ public class Motion {
                 break;
         }
 
+        // try resetting the encoders now
+        dcmotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dcmotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         // remember the current encoder counts to do odometry
         // DcMotor Direction also affects the encoder counts
         // remember the current encoder counts
