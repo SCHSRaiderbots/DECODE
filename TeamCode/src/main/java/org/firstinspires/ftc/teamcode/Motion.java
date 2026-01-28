@@ -38,6 +38,7 @@ import java.util.Locale;
  * </ol>
  */
 public class Motion {
+    static final Locale locale = new Locale("en");
 
     // The CoreHex motor has 4 ticks per revolution and is geared down by 72
     //   those attributes should be in the DcMotor class
@@ -687,6 +688,7 @@ public class Motion {
      * Test if motors have reached their target.
      * @return true if both drive motors are close to target
      */
+    @SuppressWarnings("unused")
     static boolean finished() {
         // if either motor is busy, return false
         if (dcmotorLeft.isBusy() ||  dcmotorRight.isBusy()) {
@@ -758,6 +760,7 @@ public class Motion {
      * Commands the motors to move.
      * @param in distance in inches
      */
+    @SuppressWarnings("unused")
     static void moveInches(double in) {
         // convert inches to meters and call moveMeters()
         moveMeters(in * 0.0254);
@@ -819,6 +822,7 @@ public class Motion {
      * @param x y coordinate in inches
      * @param y y coordinate in inches
      */
+    @SuppressWarnings("unused")
     static void headTowardInches(double x, double y) {
         // get the heading
         double heading = headingInches(x, y);
@@ -854,6 +858,7 @@ public class Motion {
      * @param y y-position in inches
      * @return distance in inches
      */
+    @SuppressWarnings("unused")
     static double distanceToInches(double x, double y) {
         // currently at (xPoseInches, yPoseInches)
         // d = sqrt((x1 -x2)^2 + (y1-y2)^2 )
@@ -877,7 +882,7 @@ public class Motion {
 
     static void reportPosition(Telemetry telemetry) {
         telemetry.addData("position",
-                String.format((Locale)null, "(%6.01f %6.01f) inches, heading %6.01f degrees",
+                String.format(locale, "(%6.01f %6.01f) inches, heading %6.01f degrees",
                         xPoseInches, yPoseInches, thetaPoseDegrees));
     }
 
