@@ -106,6 +106,10 @@ public class SensorColor extends LinearOpMode {
     }
 
     protected void runSample() {
+        // get the Lynx Module serial number for testing
+        // returns "(embedded)"
+        RobotId robotId = RobotId.identifyRobot(hardwareMap);
+
         // You can give the sensor a gain value, will be multiplied by the sensor's raw value before the
         // normalized color values are calculated. Color sensors (especially the REV Color Sensor V3)
         // can give very low values (depending on the lighting conditions), which only use a small part
@@ -145,6 +149,9 @@ public class SensorColor extends LinearOpMode {
 
         // Loop until we are asked to stop
         while (opModeIsActive()) {
+            // report the serial number
+            telemetry.addData("RobotId", robotId.toString());
+
             // Explain basic gain information via telemetry
             telemetry.addLine("Hold the A button on gamepad 1 to increase gain, or B to decrease it.\n");
             telemetry.addLine("Higher gain values mean that the sensor will report larger numbers for Red, Green, and Blue, and Value\n");

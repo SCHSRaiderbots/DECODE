@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Intake {
+public class Intake extends IntakeBase {
     private DcMotorEx motorIntake;
 
     public Intake(HardwareMap hardwareMap) {

@@ -62,8 +62,10 @@ public enum RobotId {
     }
 
     /**
+     * Identify the current robot.
      * Set the default robot to robotId.
      * Then check the hardware map to find the robotId.
+     * A robot name is set by putting a TouchSensor with the robot name in the configuration.
      * @param hardwareMap The hardware map
      * @param robotId The Robot Id
      * @return object that identifies the particular robot

@@ -27,6 +27,10 @@ class LogDevice {
         // look at all the Lynx Modules
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             // both are DQ2EJR1E for Riley
+            // module.getSerialNumber()
+            //  got ("embedded");
+            // getModuleSerialNumber()
+            //   get LynxModuleSerialNumber((embedded)mod#=173)
             return String.valueOf(module.getSerialNumber());
         }
 

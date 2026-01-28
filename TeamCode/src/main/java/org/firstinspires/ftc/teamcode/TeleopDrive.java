@@ -31,10 +31,10 @@ public class TeleopDrive extends OpMode {
     SampleDetector sampler;
 
     // The sweep intake
-    Intake intake;
+    IntakeBase intake;
 
     // The shooter
-    Shooter shooter;
+    ShooterBase shooter;
 
     // Whether or not to use the IMU
     boolean bIMU = false;
@@ -44,19 +44,13 @@ public class TeleopDrive extends OpMode {
     // there is a new IMU object...
     IMU imu = null;
 
-    /** the LynxModule serial number */
-    String strSerialNumber;
-
     @Override
     public void init() {
-        // get the serial number
-        // TODO: use serial number to identify robot?
-        strSerialNumber = LogDevice.getSerialNumber(hardwareMap);
-
         // report the LynxModules
         LogDevice.dumpFirmware(hardwareMap);
 
-        // try to identify the robot
+        // identify the robot
+        // TODO: should not be a public static in the Motion class
         robot = RobotId.identifyRobot(hardwareMap, RobotId.ROBOT_2023);
 
         // identify the robot -- we are expecting 2022 for this test
@@ -65,19 +59,35 @@ public class TeleopDrive extends OpMode {
         // initialize motion
         Motion.init(hardwareMap);
 
-        // create the vision object
-        if (robot == RobotId.ROBOT_2022 || robot == RobotId.ROBOT_2023) {
-            // TODO: currently uses ROBOT_2022 camera offset!
-            vision = new Vision(hardwareMap);
+        switch (robot) {
+            case ROBOT_2022:
+                // TODO: currently uses ROBOT_2022 camera offset!
+                vision = new Vision(hardwareMap);
 
-            // make the intake object
-            intake = new Intake(hardwareMap);
+                // make the intake object
+                intake = new IntakeBase();
 
-            // the shooter
-            shooter = new Shooter(hardwareMap);
+                // the shooter
+                shooter = new ShooterBase();
 
-            // get the Sample detector
-            sampler = new SampleDetector(hardwareMap);
+                // get the Sample detector
+                sampler = new SampleDetector(hardwareMap);
+                break;
+
+            case ROBOT_2023:
+            default:
+                // TODO: currently uses ROBOT_2022 camera offset!
+                vision = new Vision(hardwareMap);
+
+                // make the intake object
+                intake = new Intake(hardwareMap);
+
+                // the shooter
+                shooter = new Shooter(hardwareMap);
+
+                // get the Sample detector
+                sampler = new SampleDetector(hardwareMap);
+                break;
         }
 
         if (bIMU) {
@@ -108,7 +118,7 @@ public class TeleopDrive extends OpMode {
     public void init_loop() {
         // report the serial number during init
         // this causes an update, so it will flash the display
-        // telemetry.addData("Serial Number", strSerialNumber);
+        telemetry.addData("RobotId", robot.toString());
 
         // update the robot pose
         Motion.updateRobotPose();
@@ -194,7 +204,7 @@ public class TeleopDrive extends OpMode {
 
         double rps = shooter.getRPS();
         double mps = shooter.getMPS();
-        telemetry.addData("Shooter", "%8.3f %8.3f %8.3f", rps, mps, shooter.ticksPerSecondMax);
+        telemetry.addData("Shooter", "%8.3f %8.3f", rps, mps);
     }
 
     /**

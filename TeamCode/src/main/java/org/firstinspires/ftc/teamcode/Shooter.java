@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.MotorControlAlgorithm;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Shooter {
+public class Shooter extends ShooterBase {
     // the shooter motor
     DcMotorEx motor;
     double ticksPerRev;
@@ -17,6 +17,7 @@ public class Shooter {
 
     double REST = 0.3;
     double PUSH = 0.1;
+
     public Shooter(HardwareMap hardwareMap) {
         // get the motor
         motor = hardwareMap.get(DcMotorEx.class, "motorShoot");
