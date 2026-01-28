@@ -64,7 +64,7 @@ public class Shooter extends ShooterBase {
 
     /**
      * Set the shooter velocity.
-     * @param rps
+     * @param rps speed in revolutions per second
      */
     public void setRPS(double rps) {
         // chose a decent speed to set the speed.
@@ -72,15 +72,27 @@ public class Shooter extends ShooterBase {
         motor.setVelocity(-rps * ticksPerRev);
     }
 
+    /**
+     * Get the shooter speed.
+     * @return speed in revolutions per second
+     */
     public double getRPS() {
         return motor.getVelocity() / ticksPerRev;
     }
 
+    /**
+     * Set the shooter velocity
+     * @param mps velocity in meters per second
+     */
     public void setMPS(double mps) {
         double rps = mps / ((125.0 / 60.0) * Math.PI * (2.0 * 0.0254));
         setRPS(rps);
     }
 
+    /**
+     * Get the shooter velocity
+     * @return velocity in meters per second
+     */
     public double getMPS() {
         //                gear ratio       circumference of wheel
         return getRPS() * (125.0 / 60.0) * Math.PI * (2.0 * 0.0254);
@@ -90,6 +102,7 @@ public class Shooter extends ShooterBase {
     public void feed() {
         servo.setPosition(PUSH);
     }
+
     /** Bring Spoon back*/
     public void back() {
         servo.setPosition(REST);

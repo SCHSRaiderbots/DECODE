@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake extends IntakeBase {
-    private DcMotorEx motorIntake;
+    private final DcMotorEx motorIntake;
 
     public Intake(HardwareMap hardwareMap) {
         // get the motor

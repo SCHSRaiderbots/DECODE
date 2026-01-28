@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 public class ShooterBase {
 
     public ShooterBase() {
@@ -10,7 +8,7 @@ public class ShooterBase {
 
     /**
      * Set the shooter velocity.
-     * @param rps
+     * @param rps speed in rotations per second
      */
     public void setRPS(double rps) {
         // do nothing
