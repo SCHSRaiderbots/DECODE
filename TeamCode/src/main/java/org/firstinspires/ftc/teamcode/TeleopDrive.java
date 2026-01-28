@@ -164,7 +164,7 @@ public class TeleopDrive extends OpMode {
         }
 
         if (gamepad1.a) {
-            shooter.setRPS(25.0);
+            shooter.setRPS(23.0);
         }
         if (gamepad1.b) {
             shooter.setRPS(0);
