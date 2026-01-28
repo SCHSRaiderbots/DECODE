@@ -359,7 +359,7 @@ public class Motion {
      * <p>
      *     RunMode should e RUN_USING_ENCODER.
      * </p>
-     * TODO: velocity is not abstract; it is ticksPerSecond
+     * TODO: velocity should be abstract; it is currently ticksPerSecond
      * @param velocityLeft velocity for left motor (ticks/second)
      * @param velocityRight velocity for right motor (ticks/second)
      */

@@ -37,7 +37,7 @@ public class Shooter extends ShooterBase {
         // this is 2830. makes sense: 28 ticks/rev * 100 rev/sec
         ticksPerSecondMax = motor.getMotorType().getAchieveableMaxTicksPerSecond();
 
-        // TODO: Set custom PIDF values
+        // Set custom PIDF values
         double p = 200.0;
         double i = 0.0;
         double d = 0.0;

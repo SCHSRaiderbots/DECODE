@@ -61,7 +61,7 @@ public class TeleopDrive extends OpMode {
 
         switch (robot) {
             case ROBOT_2022:
-                // TODO: currently uses ROBOT_2022 camera offset!
+                // make the vision object
                 vision = new Vision(hardwareMap);
 
                 // make the intake object
@@ -76,6 +76,7 @@ public class TeleopDrive extends OpMode {
 
             case ROBOT_2023:
             default:
+                // make the vision object
                 // TODO: currently uses ROBOT_2022 camera offset!
                 vision = new Vision(hardwareMap);
 
@@ -144,7 +145,7 @@ public class TeleopDrive extends OpMode {
         Motion.updateRobotPose();
         Motion.reportPosition(telemetry);
 
-        // TODO: 2022 robot reports as ROBOT_2023!
+        // report the robotId
         telemetry.addData("Robot", robot);
 
         if (vision != null) {
