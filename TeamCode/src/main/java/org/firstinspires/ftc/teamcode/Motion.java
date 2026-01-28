@@ -139,6 +139,7 @@ public class Motion {
     // choose a drive mode
     @SuppressWarnings("unused")
     public enum DriveMode {TANK, ARCADE, ARCADE_ONE_STICK}
+    @SuppressWarnings("unused")
     static DriveMode driveMode = DriveMode.ARCADE;
 
     /**
@@ -287,7 +288,7 @@ public class Motion {
                 setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfRUE);
                 setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidfR2P);
 
-                setMotorToleranceInches(0.3);
+                setMotorToleranceInches(0.31);
                 break;
         }
 
