@@ -108,7 +108,7 @@ public class SensorColor extends LinearOpMode {
     protected void runSample() {
         // get the Lynx Module serial number for testing
         // returns "(embedded)"
-        RobotId robotId = RobotId.identifyRobot(hardwareMap);
+        RobotId robotId = RobotId.identifyRobot(hardwareMap, RobotId.ROBOT_2022);
 
         // You can give the sensor a gain value, will be multiplied by the sensor's raw value before the
         // normalized color values are calculated. Color sensors (especially the REV Color Sensor V3)
