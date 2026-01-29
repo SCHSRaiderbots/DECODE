@@ -62,7 +62,7 @@ public class TeleopDrive extends OpMode {
         switch (robot) {
             case ROBOT_2022:
                 // make the vision object
-                vision = new Vision(hardwareMap);
+                vision = new Vision(hardwareMap, robot);
 
                 // make the intake object
                 intake = new IntakeBase();
@@ -78,7 +78,7 @@ public class TeleopDrive extends OpMode {
             default:
                 // make the vision object
                 // TODO: currently uses ROBOT_2022 camera offset!
-                vision = new Vision(hardwareMap);
+                vision = new Vision(hardwareMap, robot);
 
                 // make the intake object
                 intake = new Intake(hardwareMap);

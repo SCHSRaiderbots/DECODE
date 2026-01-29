@@ -57,9 +57,9 @@ public class Vision {
      * it's pointing straight left, -90 degrees for straight right, etc. You can also set the roll
      * to +/-90 degrees if it's vertical, or 180 degrees if it's upside-down.
      */
-    private final Position cameraPosition = new Position(DistanceUnit.INCH,
+    private Position cameraPosition = new Position(DistanceUnit.INCH,
             -3.875, 7.0, 5.0, 0);
-    private final YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
+    private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
             0, -90, 0, 0);
 
     /**
@@ -83,8 +83,6 @@ public class Vision {
     // the height of the center of the target image above the floor
     // TODO: check the dimensions
     // https://firstinspiresst01.blob.core.windows.net/first-energize-ftc/field-setup-and-assembly-guide.pdf
-    // page 22 says the horizontal center line is 6.375 from the floor or 5.75 inches from top of the tile
-    private static final float mmTargetHeight   = 6 * mmPerInch;
     // TODO: these values are slightly off
     private static final float halfField        = 72 * mmPerInch;
     // the pitch of the tiles is 23 5/8
@@ -111,7 +109,23 @@ public class Vision {
     // private static final String TFOD_MODEL_ASSET = "PowerPlay.tflite";
     // private static final String TFOD_MODEL_FILE  = "/sdcard/FIRST/tflitemodels/CustomTeamModel.tflite";
 
-    public Vision (HardwareMap hardwareMap) {
+    public Vision (HardwareMap hardwareMap, RobotId robotId) {
+        switch (robotId) {
+            case ROBOT_2022:
+                cameraPosition = new Position(DistanceUnit.INCH,
+                        -3.875, 7.0, 5.0, 0);
+                cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
+                        0, -90.0, 0.0, 0);
+                break;
+
+            case ROBOT_2023:
+            default:
+                cameraPosition = new Position(DistanceUnit.INCH,
+                        9.0, 9.0, 5.0, 0);
+                cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
+                        0.0, -90.0, 0, 0);
+                break;
+        }
         // build aprilTag
         initAprilTag();
 
@@ -215,6 +229,10 @@ public class Vision {
             if (detection.metadata != null) {
                 // Report the AprilTag id and its name
                 telemetry.addLine(String.format(locale, "\n==== (ID %d) %s", detection.id, detection.metadata.name));
+                telemetry.addLine(String.format(locale, "tag (%8.2f, %8.2f, %8.2f)",
+                        detection.metadata.fieldPosition.get(0),
+                        detection.metadata.fieldPosition.get(1),
+                        detection.metadata.fieldPosition.get(2)));
 
                 // Report the calculated robotPose
                 // the Pose3D robotPose is extracted for us.
