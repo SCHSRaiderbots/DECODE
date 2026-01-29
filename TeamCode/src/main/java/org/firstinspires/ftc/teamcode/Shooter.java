@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.MotorControlAlgorithm;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Shooter {
+public class Shooter extends ShooterBase {
     // the shooter motor
     DcMotorEx motor;
     double ticksPerRev;
@@ -17,6 +17,7 @@ public class Shooter {
 
     double REST = 0.3;
     double PUSH = 0.1;
+
     public Shooter(HardwareMap hardwareMap) {
         // get the motor
         motor = hardwareMap.get(DcMotorEx.class, "motorShoot");
@@ -36,7 +37,7 @@ public class Shooter {
         // this is 2830. makes sense: 28 ticks/rev * 100 rev/sec
         ticksPerSecondMax = motor.getMotorType().getAchieveableMaxTicksPerSecond();
 
-        // TODO: Set custom PIDF values
+        // Set custom PIDF values
         double p = 200.0;
         double i = 0.0;
         double d = 0.0;
@@ -63,7 +64,7 @@ public class Shooter {
 
     /**
      * Set the shooter velocity.
-     * @param rps
+     * @param rps speed in revolutions per second
      */
     public void setRPS(double rps) {
         // chose a decent speed to set the speed.
@@ -71,15 +72,27 @@ public class Shooter {
         motor.setVelocity(-rps * ticksPerRev);
     }
 
+    /**
+     * Get the shooter speed.
+     * @return speed in revolutions per second
+     */
     public double getRPS() {
         return motor.getVelocity() / ticksPerRev;
     }
 
+    /**
+     * Set the shooter velocity
+     * @param mps velocity in meters per second
+     */
     public void setMPS(double mps) {
         double rps = mps / ((125.0 / 60.0) * Math.PI * (2.0 * 0.0254));
         setRPS(rps);
     }
 
+    /**
+     * Get the shooter velocity
+     * @return velocity in meters per second
+     */
     public double getMPS() {
         //                gear ratio       circumference of wheel
         return getRPS() * (125.0 / 60.0) * Math.PI * (2.0 * 0.0254);
@@ -89,6 +102,7 @@ public class Shooter {
     public void feed() {
         servo.setPosition(PUSH);
     }
+
     /** Bring Spoon back*/
     public void back() {
         servo.setPosition(REST);

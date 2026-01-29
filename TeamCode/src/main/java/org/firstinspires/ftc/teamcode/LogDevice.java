@@ -23,10 +23,15 @@ class LogDevice {
     // String used for the log
     private static final String TAG = "LogDevice";
 
+    @SuppressWarnings("unused")
     static String getSerialNumber(HardwareMap hardwareMap) {
         // look at all the Lynx Modules
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             // both are DQ2EJR1E for Riley
+            // module.getSerialNumber()
+            //  got ("embedded");
+            // getModuleSerialNumber()
+            //   get LynxModuleSerialNumber((embedded)mod#=173)
             return String.valueOf(module.getSerialNumber());
         }
 
