@@ -38,6 +38,7 @@ public class AutoLeave extends OpMode {
         else {
             Motion.setVelocity(0, 0); // stop
         }
+        new DriveForward(18);
     }
 
     @Override
