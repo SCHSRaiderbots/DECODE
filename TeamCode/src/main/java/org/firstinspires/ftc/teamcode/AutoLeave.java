@@ -25,7 +25,7 @@ public class AutoLeave extends OpMode {
     public void start() {
         startTime = System.currentTimeMillis();
     }
-
+    double forward = 6;
     @Override
     public void loop() {
 

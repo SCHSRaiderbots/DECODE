@@ -176,6 +176,7 @@ public class TeleopDrive extends OpMode {
 
         if (gamepad1.a) {
             shooter.setRPS(23.0);
+            //like add the shooter to shoot automatically like 3 secs later
         }
         if (gamepad1.b) {
             shooter.setRPS(0);
