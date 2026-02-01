@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.command.ParallelCommandGroup;
 import org.firstinspires.ftc.teamcode.command.SequentialCommandGroup;
 
 
-@Autonomous(name="AutoMoveShoot", group="competition")
+@Autonomous(name="AutoMoveShoot (Don't USE)", group="competition")
 public class AutoMoveShoot extends OpMode {
     Command command;
     Vision vision;
@@ -35,8 +35,7 @@ public class AutoMoveShoot extends OpMode {
                 // .. several
 
                 new DriveTurnTowards(0, 0),
-                new DriveForward(20),
-                new ShooterCommand(shooter, 23)
+                new DriveForward(20)
 
 
 
