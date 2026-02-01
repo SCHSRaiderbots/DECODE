@@ -183,19 +183,28 @@ public class TeleopDrive extends OpMode {
         }
 
         if (gamepad1.dpad_up) {
+            // shooter spin up
             shooter.setMPS(3.0);
             intake.power(1.0);
         }
         if (gamepad1.dpad_down) {
+            // intake
             shooter.setMPS(0.0);
             intake.power(0);
+        }
+        if (gamepad1.dpad_right) {
+            // eject
+            shooter.setMPS(-4.0);
+            intake.power(-1.0);
         }
 
         // either bumper feeds
         if (gamepad1.right_bumper || gamepad1.left_bumper){
+            // feed artifact into the shooter (should have been spun up)
             shooter.feed();
         }
         else {
+            // retract the feed mechanism
             shooter.back();
         }
 
@@ -207,6 +216,8 @@ public class TeleopDrive extends OpMode {
         double rps = shooter.getRPS();
         double mps = shooter.getMPS();
         telemetry.addData("Shooter", "%8.3f %8.3f", rps, mps);
+
+        telemetry.addData("Color", sampler.getColor().toString());
     }
 
     /**
