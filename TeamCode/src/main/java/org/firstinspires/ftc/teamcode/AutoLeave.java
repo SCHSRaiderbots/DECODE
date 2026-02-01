@@ -2,46 +2,81 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@Autonomous(name="AutoLeave", group = "competition")
+import org.firstinspires.ftc.teamcode.command.Command;
+import org.firstinspires.ftc.teamcode.command.ParallelCommandGroup;
+import org.firstinspires.ftc.teamcode.command.SequentialCommandGroup;
 
+
+@Autonomous(name="AutoLeave", group="competition")
 public class AutoLeave extends OpMode {
+    Command command;
+    Vision vision;
 
-    double v;
-    long startTime;
+    Shooter shooter;
+    Intake intake;
 
-    @Override
-    public void init() {
-        // initialize drivetrain
-        Motion.robot = RobotId.identifyRobot(hardwareMap);
+
+
+
+    //Add stuff that needs to be initiated
+    public void init()
+    {
         Motion.init(hardwareMap);
 
-        // same velocity math as your TeleOp
-        double rpm = 6000.0;
-        v = (rpm / 60.0) * Motion.HD_HEX_TICKS_PER_REV;
+        shooter = new Shooter(hardwareMap);
+        intake = new Intake(hardwareMap);
+
+        Motion.setPoseInches(44, -60, 135.0);
+
+
+        command = new SequentialCommandGroup(
+                // .. several
+
+
+                new DriveForward(35)
+
+
+
+
+        );
     }
 
-    @Override
+    public void init_loop() {
+        // figure Blue/Red and starting position
+    }
+
+    //Program starts
     public void start() {
-        startTime = System.currentTimeMillis();
+        command.initialize();
+        command.execute();
+
+
+
+
     }
-    double forward = 6;
-    @Override
+
     public void loop() {
-
-        long elapsed = System.currentTimeMillis() - startTime;
-
-        // drive forward for 2 seconds
-        if (elapsed < 2000) {
-            Motion.setVelocity(v * 0.6, v * 0.6);
+        if(!command.isFinished() )
+        {
+            command.execute();
         }
-        else {
-            Motion.setVelocity(0, 0); // stop
-        }
+
+
+
+
+
+
+
     }
 
-    @Override
-    public void stop() {
-        Motion.setVelocity(0, 0);
-    }
+
+
+
+
+
+
+
+
 }
