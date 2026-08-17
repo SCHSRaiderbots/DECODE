@@ -8,9 +8,10 @@ import org.firstinspires.ftc.teamcode.command.SequentialCommandGroup;
 
 
 @Autonomous(name="Good Auto", group="competition")
+@SuppressWarnings("unused")
 public class AutoLeave extends OpMode {
     Command command;
-    Vision vision;
+    // Vision vision;
 
     Shooter shooter;
     Intake intake;
