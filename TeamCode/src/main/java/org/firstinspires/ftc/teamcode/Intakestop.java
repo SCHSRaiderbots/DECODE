@@ -22,10 +22,6 @@ public class Intakestop extends Command {
 
 
     }
-    @Override
-    public void execute() {
-
-    }
 
     @Override
     public boolean isFinished() {
@@ -33,6 +29,4 @@ public class Intakestop extends Command {
         return true;
     }
 
-    @Override
-    public void end(boolean interrupted) {}
 }

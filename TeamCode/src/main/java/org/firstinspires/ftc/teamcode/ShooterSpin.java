@@ -23,17 +23,10 @@ public class ShooterSpin extends Command {
 
 
     }
-    @Override
-    public void execute() {
-
-    }
 
     @Override
     public boolean isFinished() {
 
         return true;
     }
-
-    @Override
-    public void end(boolean interrupted) {}
 }
