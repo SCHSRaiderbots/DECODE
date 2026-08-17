@@ -1,0 +1,38 @@
+package org.firstinspires.ftc.teamcode;
+
+import org.firstinspires.ftc.teamcode.command.Command;
+
+public class ShooterFeed extends Command {
+
+    Shooter m_shooter;
+
+
+    public ShooterFeed(Shooter shooter) {
+        m_shooter = shooter;
+
+    }
+    @Override
+    public void initialize()
+    {
+
+
+        m_shooter.feed();
+
+
+
+
+    }
+    @Override
+    public void execute() {
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return true;
+    }
+
+    @Override
+    public void end(boolean interrupted) {}
+}

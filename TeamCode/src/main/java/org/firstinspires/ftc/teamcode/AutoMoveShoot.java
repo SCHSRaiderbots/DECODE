@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.command.ParallelCommandGroup;
 import org.firstinspires.ftc.teamcode.command.SequentialCommandGroup;
 
 
-@Autonomous(name="AutoMoveShoot (Don't USE)", group="competition")
+@Autonomous(name="AutoLeave", group="competition")
 public class AutoMoveShoot extends OpMode {
     Command command;
     Vision vision;
@@ -28,14 +28,14 @@ public class AutoMoveShoot extends OpMode {
         shooter = new Shooter(hardwareMap);
         intake = new Intake(hardwareMap);
 
-        Motion.setPoseInches(44, -60, 135.0);
+        Motion.setPoseInches(-44, -60, 135.0);
 
 
         command = new SequentialCommandGroup(
                 // .. several
 
-                new DriveTurnTowards(0, 0),
-                new DriveForward(20)
+
+                new DriveForward(18)
 
 
 

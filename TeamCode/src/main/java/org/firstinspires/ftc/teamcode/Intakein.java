@@ -2,30 +2,34 @@ package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.command.Command;
 
-public class ShooterCommand extends Command {
-    double m_speed;
-    Shooter m_shooter;
+public class Intakein extends Command {
 
-    public ShooterCommand(Shooter shooter, double speed) {
+    Intake m_intake;
 
 
-        m_shooter = shooter;
-        m_speed = speed;
+    public Intakein(Intake intake) {
+        m_intake = intake;
+
     }
     @Override
     public void initialize()
     {
-        m_shooter.setRPS(m_speed);
 
 
-        m_shooter.feed();
+        m_intake.power(1.0);
+
+
+
 
     }
     @Override
-    public void execute() {}
+    public void execute() {
+
+    }
 
     @Override
     public boolean isFinished() {
+
         return true;
     }
 

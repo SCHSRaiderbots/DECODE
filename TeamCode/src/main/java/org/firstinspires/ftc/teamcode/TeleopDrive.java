@@ -194,7 +194,7 @@ public class TeleopDrive extends OpMode {
         }
         if (gamepad1.dpad_right) {
             // eject
-            shooter.setMPS(-4.0);
+            shooter.setMPS(-3.5);
             intake.power(-1.0);
         }
 
