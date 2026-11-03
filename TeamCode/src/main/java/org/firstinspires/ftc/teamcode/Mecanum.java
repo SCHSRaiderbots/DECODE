@@ -78,7 +78,7 @@ public class Mecanum extends OpMode {
         lrear.setPower(scale * pwrLRear * 0.7);
         rrear.setPower(scale * pwrRRear * 0.7);
 
-        testIntake.setPower(0.45 * gamepad1.right_trigger);
+        testIntake.setPower(0.6 * gamepad1.right_trigger);
 
     }
 
