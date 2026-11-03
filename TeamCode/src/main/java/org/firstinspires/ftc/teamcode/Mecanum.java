@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 
 @TeleOp(name="Mecanum", group ="Competition")
 @SuppressWarnings("unused")
@@ -29,6 +31,12 @@ public class Mecanum extends OpMode {
 
         rfront.setDirection(DcMotorSimple.Direction.REVERSE);
         rrear.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        try {
+            testIMU = new TestIMU(hardwareMap);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -82,6 +90,15 @@ public class Mecanum extends OpMode {
 
         testIntake.setPower(1 * gamepad1.right_trigger);
 
+        telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", testIMU.getAngle());
+
+
+
+        // reset Yaw
+        if (gamepad1.aWasPressed())
+        {
+            testIMU.resetYaw();
+        }
     }
 
     @Override
