@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
 
 @TeleOp(name="Mecanum", group ="Competition")
 @SuppressWarnings("unused")
@@ -49,13 +47,28 @@ public class Mecanum extends OpMode {
 
     @Override
     public void loop() {
+        telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", testIMU.getAngle());
+
+        // reset Yaw
+        if (gamepad1.aWasPressed())
+        {
+            telemetry.addData("Yaw", "Resetting\n");
+            testIMU.resetYaw();
+        }
+
         //lpower is the control for forward and backward on the left stick
         double lpower = -gamepad1.left_stick_y;
         //lrpower is the control for rotate c and cc on the left stick
-        double lrpower = -gamepad1.left_stick_x;
+        double rrpower = -gamepad1.left_stick_x;
         //rrpower is the control for left and right on the right stick
-        double rrpower = -gamepad1.right_stick_x;
+        double lrpower = -gamepad1.right_stick_x;
 
+        double yawAngle = testIMU.getAngle();
+        /*
+        // change to field-centric
+        rrpower = rrpower * Math.cos(-yawAngle) + lpower * Math.sin(-yawAngle);
+        lpower = lpower * Math.cos(-yawAngle) - rrpower * Math.sin(-yawAngle);
+        */
         // powers to the motors
         double pwrLFront = lpower;
         double pwrRFront = lpower;
@@ -88,17 +101,16 @@ public class Mecanum extends OpMode {
         lrear.setPower(scale * pwrLRear * 0.7);
         rrear.setPower(scale * pwrRRear * 0.7);
 
-        testIntake.setPower(1 * gamepad1.right_trigger);
+        // controls for intake
+        double intake = gamepad1.right_trigger;
+        double eject = -1 * gamepad1.left_trigger;
 
-        telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", testIMU.getAngle());
+        // intake power
+        double pwrIntake = 0;
+        pwrIntake += intake;
+        pwrIntake += eject;
 
-
-
-        // reset Yaw
-        if (gamepad1.aWasPressed())
-        {
-            testIMU.resetYaw();
-        }
+        testIntake.setPower(pwrIntake);
     }
 
     @Override
